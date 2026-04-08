@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 import { STATES } from "./data/data";
+import Navbar from "./components/Navbar";
 import MapView from "./components/MapView";
 import SidePanel from "./components/SidePanel";
 import DetailsPage from "./components/DetailsPage";
@@ -13,6 +14,7 @@ export default function App() {
 
   return (
     <>
+    <Navbar />
       {/* ================= MAP VIEW ================= */}
       {view === "map" && (
         <div className={`app-container ${selectedState ? "active" : ""}`}>
