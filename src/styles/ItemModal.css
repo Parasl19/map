@@ -1,0 +1,114 @@
+/* ================= OVERLAY ================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* ================= MODAL ================= */
+.modal {
+  background: #020617;
+  width: 85%;
+  max-width: 750px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  padding: 20px;
+  position: relative;
+  animation: fadeUp 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= IMAGE ================= */
+.modal-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+/* ================= TITLE ================= */
+.modal h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+/* ================= TEXT ================= */
+.modal p {
+  color: #94a3b8;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* ================= SECTION HEADINGS ================= */
+.modal h3 {
+  margin-top: 20px;
+  color: #38bdf8;
+  font-size: 16px;
+}
+
+/* ================= LIST ================= */
+.modal ul {
+  padding-left: 18px;
+  margin-top: 5px;
+}
+
+.modal li {
+  color: #cbd5f5;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+/* ================= CLOSE BUTTON ================= */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #1e293b;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  background: #334155;
+}
+
+/* ================= SCROLLBAR ================= */
+.modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .modal-img {
+    height: 200px;
+  }
+
+  .modal h2 {
+    font-size: 20px;
+  }
+}

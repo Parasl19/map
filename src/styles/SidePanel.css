@@ -1,0 +1,177 @@
+.panel {
+  background: linear-gradient(145deg, #020617, #0f172a);
+  padding: 16px;
+  height: 100vh;
+  overflow-y: auto;
+  color: #e2e8f0;
+  width: 550px;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: white;
+}
+
+.hero-overlay h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.tag {
+  font-size: 12px;
+  color: #38bdf8;
+}
+
+/* DOTS */
+.dots {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #94a3b8;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background: white;
+}
+
+/* GLASS CARD */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 14px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* INFO GRID */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.info-box {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.label {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.value {
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* MINI CARDS */
+.mini-cards {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.mini-card {
+  min-width: 110px;
+  background: #020617;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.mini-card img {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+}
+
+.mini-card p {
+  font-size: 12px;
+  padding: 6px;
+}
+
+/* HIGHLIGHTS */
+.highlight {
+  margin-top: 10px;
+}
+
+.chip {
+  display: inline-block;
+  background: #1e293b;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+/* BUTTONS */
+.bottom-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 10px;
+  background: linear-gradient(to top, #020617, transparent);
+}
+
+.reset {
+  flex: 1;
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.more {
+  flex: 2;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background: #334155;
+}
+
+.more:hover {
+  opacity: 0.9;
+}

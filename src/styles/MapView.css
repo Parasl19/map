@@ -1,0 +1,38 @@
+/* MAP CONTAINER */
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+/* SVG MAP */
+.map-container svg {
+  width: 100%;
+  height: 100%;
+  animation: mapFade 0.6s ease;
+}
+
+/* TOOLTIP */
+.tooltip {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(30, 41, 59, 0.9);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* REMOVE OUTLINE */
+svg:focus,
+svg:active {
+  outline: none;
+}
+
+.map-container svg path {
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.map-container svg path:hover {
+  filter: brightness(1.1);
+}
