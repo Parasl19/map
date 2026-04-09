@@ -50,7 +50,12 @@ export default function App() {
   }
 
   return (
-    <>
+    < div className="app-root">
+
+       {/* NAVBAR (FIXED) */}
+      <Navbar selectedState={selectedState} view={view} />
+
+      {/* MAIN CONTENT */}
       {view === "map" && (
         <div className={`app-container ${selectedState ? "active" : ""}`}>
 
@@ -78,6 +83,6 @@ export default function App() {
           setView={setView}
         />
       )}
-    </>
+    </div>
   );
 }
