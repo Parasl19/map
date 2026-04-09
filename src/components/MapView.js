@@ -86,6 +86,7 @@ export default function MapView({
 
                   /* MOBILE TAP */
                   onClick={() => {
+                    // e.stopPropagation();
                     const data = STATES[normalized];
                     setSelectedState({ name: normalized, data });
 

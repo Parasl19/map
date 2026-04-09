@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import "../styles/SidePanel.css";
 
-export default function SidePanel({
-  selectedState,
-  setSelectedState,
-  setView
-}) {
+const SidePanel = forwardRef(({ selectedState, setSelectedState, setView }, ref) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const data = selectedState?.data;
@@ -26,11 +22,8 @@ export default function SidePanel({
   if (!selectedState) return null;
 
   return (
-    <div className={`panel ${selectedState ? "active" : ""}`}>
-      
-
+    <div ref={ref} className={`panel ${selectedState ? "active" : ""}`}>
       <div className="panel-content">
-
         {/* HERO */}
         <div className="hero">
           <img
@@ -140,4 +133,6 @@ export default function SidePanel({
       </div>
     </div>
   );
-}
+});
+
+export default SidePanel;
