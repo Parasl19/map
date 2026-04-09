@@ -114,7 +114,7 @@ export const STATES = {
     population: "≈ 53 million",
     traditionalFood: "Pulihora, gongura",
     festival: "Ugadi, Sankranti",
-    dress: "Saree, dhoti",
+    dress: "Saree, Dhoti",
     stateAnimal: "Blackbuck"
   },
 
@@ -408,7 +408,7 @@ export const STATES = {
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ6boBUEX0U_KShdYEoxgFe_mkgCunSiDarQ&s",
         origin: "Ancient Hindu festival dedicated to the Sun God (Surya) and Chhathi Maiya.",
         significance: "One of the most important and sacred festivals of Bihar.",
-        costume: "Devotees wear traditional sarees and dhotis.",
+        costume: "Devotees wear traditional sarees and Dhotis.",
         music: "Traditional devotional Chhath songs.",
         facts: [
           "Celebrated on riverbanks and ghats",
@@ -573,7 +573,7 @@ export const STATES = {
         image: "https://img.naidunia.com/naidunia/ndnimg/24112021/24_11_2021-panthi_20211124_12513.jpg",
         origin: "Traditional dance of the Satnami community.",
         significance: "Performed to honor Guru Ghasidas.",
-        costume: "White dhoti with colorful turbans.",
+        costume: "White Dhoti with colorful turbans.",
         music: "Accompanied by dholak and manjira.",
         facts: [
           "Performed during religious occasions",
@@ -600,7 +600,7 @@ export const STATES = {
     population: "≈ 30 million",
     traditionalFood: "Chila, fara",
     festival: "Bastar Dussehra",
-    dress: "Saree, dhoti",
+    dress: "Saree, Dhoti",
     stateAnimal: "Wild Buffalo"
   },
   "Goa": {
@@ -958,7 +958,7 @@ export const STATES = {
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPmSmkvrmk5gRng8Gwi_58pTHOBN1bi77ijg&s",
         origin: "Traditional village dance form performed during festivals and social celebrations.",
         significance: "Represents rural life, harvest joy, and community bonding in Haryana.",
-        costume: "Women wear ghagra-choli with traditional jewelry; men wear dhoti-kurta and pagri.",
+        costume: "Women wear ghagra-choli with traditional jewelry; men wear Dhoti-kurta and pagri.",
         music: "Accompanied by dholak, nagada, and traditional folk songs.",
         facts: [
           "Popular dances include Phag and Dhamal",
@@ -1013,7 +1013,7 @@ export const STATES = {
     population: "≈ 29 million",
     traditionalFood: "Bajra roti, lassi",
     festival: "Teej, Gugga Naumi",
-    dress: "Kurta, dhoti",
+    dress: "Kurta, Dhoti",
     stateAnimal: "Blackbuck"
   },
   "Himachal Pradesh": {
@@ -1490,7 +1490,7 @@ export const STATES = {
     population: "≈ 68 million",
     traditionalFood: "Bisi bele bath, ragi mudde",
     festival: "Mysuru Dasara",
-    dress: "Ilkal saree, dhoti",
+    dress: "Ilkal saree, Dhoti",
     stateAnimal: "Indian Elephant"
   },
   "Kerala": {
@@ -2717,7 +2717,7 @@ export const STATES = {
       },
       {
         title: "Shirdi",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHNCdnMLKQ2ICz3TtQ-ltKclTBhdryyWiYww&s",
+        image: "https://sai.org.in/sites/default/files/Kakadarti_64.jpg",
         history: "Home of Sai Baba, a revered spiritual saint.",
         location: "Ahmednagar",
         significance: "Major pilgrimage site attracting millions of devotees.",
@@ -3020,7 +3020,7 @@ export const STATES = {
     population: "≈ 124 million",
     festival: "Ganesh Chaturthi",
     traditionalFood: "Puran Poli, Bhakri, Sabudana Khichdi, Thalipeeth",
-    dress: "Nauvari saree, dhoti",
+    dress: "Nauvari saree, Dhoti",
     stateAnimal: "Indian Giant Squirrel"
   },
   "Manipur": {
@@ -3148,7 +3148,7 @@ export const STATES = {
     population: "≈ 3 million",
     traditionalFood: "Eromba, singju",
     festival: "Yaoshang",
-    dress: "Phanek, dhoti",
+    dress: "Phanek, Dhoti",
     stateAnimal: "Sangai Deer"
   },
   "Meghalaya": {
@@ -3672,7 +3672,7 @@ export const STATES = {
     population: "≈ 46 million",
     traditionalFood: "Dalma, chuda mix",
     festival: "Rath Yatra",
-    dress: "Sambalpuri saree, dhoti",
+    dress: "Sambalpuri saree, Dhoti",
     stateAnimal: "Sambar Deer"
   },
   "Punjab": {
