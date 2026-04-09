@@ -10,7 +10,6 @@ import {
 const geoUrl =
   "https://cdn.jsdelivr.net/npm/geojson-india@0.0.2/india.json";
 
-// Normalize names
 const normalizeStateName = (name) => {
   const map = {
     "Andaman and Nicobar": "Andaman & Nicobar",
@@ -30,17 +29,23 @@ export default function MapView({
 }) {
 
   const [hoveredState, setHoveredState] = useState("");
- 
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 }); // ✅ ADD
 
   return (
     <div className="map-container">
 
-      {/* 🔥 TOOLTIP */}
+      {/* 🔥 TOOLTIP ABOVE CURSOR */}
       {hoveredState && (
-  <div className="tooltip fixed">
-    {hoveredState}
-  </div>
-)}
+        <div
+          className="tooltip cursor"
+          style={{
+            left: tooltipPos.x,
+            top: tooltipPos.y
+          }}
+        >
+          {hoveredState}
+        </div>
+      )}
 
       <ComposableMap
         projection="geoMercator"
@@ -66,20 +71,27 @@ export default function MapView({
                   geography={geo}
 
                   /* 🔥 HOVER EVENTS */
-                  onMouseEnter={(e) => {
+                  onMouseEnter={() => {
                     setHoveredState(rawName);
                   }}
+
+                  onMouseMove={(e) => {   // ✅ ADD THIS
+                    setTooltipPos({
+                      x: e.clientX,
+                      y: e.clientY
+                    });
+                  }}
+
                   onMouseLeave={() => setHoveredState("")}
 
-                  /* 🔥 MOBILE TAP SUPPORT */
+                  /* MOBILE TAP */
                   onClick={() => {
                     const data = STATES[normalized];
                     setSelectedState({ name: normalized, data });
 
-                    // show tooltip briefly on mobile
                     if (window.innerWidth < 800) {
                       setHoveredState(rawName);
-                      setTimeout(() => setHoveredState(""), 1500);
+                      setTimeout(() => setHoveredState(""), 1200);
                     }
                   }}
 
