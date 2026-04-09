@@ -83,6 +83,6 @@ export default function App() {
           setView={setView}
         />
       )}
-    </div>
+    </>
   );
 }
