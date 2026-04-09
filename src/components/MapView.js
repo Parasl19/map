@@ -36,9 +36,12 @@ export default function MapView({
       )}
 
       <ComposableMap
-        projection="geoMercator"
-        projectionConfig={{ scale: 900, center: [80, 22] }}
-      >
+      projection="geoMercator"
+      projectionConfig={{
+      scale: window.innerWidth < 800 ? 1400 : 900, // 🔥 bigger on mobile
+       center: window.innerWidth < 800 ? [82.7, 22] : [80, 22]
+  }}
+>
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => {
@@ -66,15 +69,21 @@ export default function MapView({
                         selectedState?.name === normalized
                           ? "#38bdf8"
                           : "#e5e7eb",
+                           stroke: "#1e293b",   // 🔥 ADD BORDER COLOR
+                           strokeWidth: 0.5,
                       outline: "none"
                     },
                     hover: {
-                      fill: "#60a5fa",
-                      outline: "none"
+                       fill: "#60a5fa",
+                        stroke: "#0f172a",
+                        strokeWidth: 1,
+                        outline: "none"
                     },
                     pressed: {
-                      fill: "#2563eb",
-                      outline: "none"
+                          fill: "#2563eb",
+                          stroke: "#0f172a",
+                          strokeWidth: 1,
+                          outline: "none"
                     }
                   }}
                 />

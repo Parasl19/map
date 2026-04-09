@@ -26,9 +26,9 @@ export default function SidePanel({
   if (!selectedState) return null;
 
   return (
-    <div className="panel">
+    <div className={`panel ${selectedState ? "active" : ""}`}>
+      
 
-      {/* 🔥 SCROLLABLE CONTENT */}
       <div className="panel-content">
 
         {/* HERO */}
@@ -63,19 +63,19 @@ export default function SidePanel({
         {/* INFO */}
         <div className="info-grid">
           <div className="info-box">
-            <span>🏛️</span>
+             <span className="icon">🏛️</span>
             <p className="label">Capital</p>
             <p className="value">{data?.capital}</p>
           </div>
 
           <div className="info-box">
-            <span>🌐</span>
+            <span className="icon">🌐</span>
             <p className="label">Language</p>
             <p className="value">{data?.language}</p>
           </div>
 
           <div className="info-box">
-            <span>👥</span>
+            <span className="icon">👥</span>
             <p className="label">Population</p>
             <p className="value">{data?.population}</p>
           </div>
@@ -120,25 +120,24 @@ export default function SidePanel({
           </div>
         </div>
 
+        {/* 🔥 BUTTONS AT BOTTOM (NOT FIXED) */}
+        <div className="bottom-actions">
+          <button
+            className="reset"
+            onClick={() => setSelectedState(null)}
+          >
+            Reset
+          </button>
+
+          <button
+            className="more"
+            onClick={() => setView("details")}
+          >
+            Explore More →
+          </button>
+        </div>
+
       </div>
-
-      {/* 🔥 FIXED BUTTONS (OUTSIDE SCROLL) */}
-      <div className="bottom-actions">
-        <button
-          className="reset"
-          onClick={() => setSelectedState(null)}
-        >
-          Reset
-        </button>
-
-        <button
-          className="more"
-          onClick={() => setView("details")}
-        >
-          Explore More →
-        </button>
-      </div>
-
     </div>
   );
 }

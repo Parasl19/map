@@ -1,7 +1,7 @@
 /* GLOBAL FIX */
 body {
   margin: 0;
-  overflow: hidden; /* 🚀 prevents page scroll */
+  overflow: hidden;
 }
 
 /* MAIN LAYOUT */
@@ -52,4 +52,35 @@ svg:active {
 
 .map-container svg path:hover {
   filter: brightness(1.1);
+}
+
+
+/* ================= MOBILE FIX ================= */
+@media (max-width: 800px) {
+
+  /* layout becomes vertical */
+  .app-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* 🔥 FULL SCREEN MAP */
+  .map-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+
+    z-index: 1;
+  }
+
+  .map-container svg {
+    width: 100%;
+    height: 100%;
+
+    transform: scale(1.1); /* 🔥 zoom map */
+    transform-origin: center;
+  }
+
 }
