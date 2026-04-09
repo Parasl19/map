@@ -16,7 +16,7 @@ export default function App() {
     <div className="app-root">
 
       {/* NAVBAR (FIXED) */}
-      <Navbar />
+      <Navbar selectedState={selectedState} view={view} />
 
       {/* MAIN CONTENT */}
       {view === "map" && (

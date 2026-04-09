@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/MapView.css";
+
 import {
   ComposableMap,
   Geographies,
@@ -9,7 +10,6 @@ import {
 const geoUrl =
   "https://cdn.jsdelivr.net/npm/geojson-india@0.0.2/india.json";
 
-// Normalize names
 const normalizeStateName = (name) => {
   const map = {
     "Andaman and Nicobar": "Andaman & Nicobar",
@@ -25,19 +25,34 @@ const normalizeStateName = (name) => {
 export default function MapView({
   STATES,
   selectedState,
-  setSelectedState,
-  hoveredState,
-  setHoveredState
+  setSelectedState
 }) {
+
+  const [hoveredState, setHoveredState] = useState("");
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 }); // ✅ ADD
+
   return (
     <div className="map-container">
+
+      {/* 🔥 TOOLTIP ABOVE CURSOR */}
       {hoveredState && (
-        <div className="tooltip">{hoveredState}</div>
+        <div
+          className="tooltip cursor"
+          style={{
+            left: tooltipPos.x,
+            top: tooltipPos.y
+          }}
+        >
+          {hoveredState}
+        </div>
       )}
 
       <ComposableMap
         projection="geoMercator"
-        projectionConfig={{ scale: 900, center: [80, 22] }}
+        projectionConfig={{
+          scale: window.innerWidth < 800 ? 1400 : 900,
+          center: window.innerWidth < 800 ? [82.7, 22] : [80, 22]
+        }}
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
@@ -54,26 +69,52 @@ export default function MapView({
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onMouseEnter={() => setHoveredState(rawName)}
+
+                  /* 🔥 HOVER EVENTS */
+                  onMouseEnter={() => {
+                    setHoveredState(rawName);
+                  }}
+
+                  onMouseMove={(e) => {   // ✅ ADD THIS
+                    setTooltipPos({
+                      x: e.clientX,
+                      y: e.clientY
+                    });
+                  }}
+
                   onMouseLeave={() => setHoveredState("")}
+
+                  /* MOBILE TAP */
                   onClick={() => {
                     const data = STATES[normalized];
                     setSelectedState({ name: normalized, data });
+
+                    if (window.innerWidth < 800) {
+                      setHoveredState(rawName);
+                      setTimeout(() => setHoveredState(""), 1200);
+                    }
                   }}
+
                   style={{
                     default: {
                       fill:
                         selectedState?.name === normalized
                           ? "#38bdf8"
                           : "#e5e7eb",
+                      stroke: "#1e293b",
+                      strokeWidth: 0.6,
                       outline: "none"
                     },
                     hover: {
                       fill: "#60a5fa",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
                       outline: "none"
                     },
                     pressed: {
                       fill: "#2563eb",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
                       outline: "none"
                     }
                   }}
