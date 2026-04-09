@@ -13,9 +13,12 @@ export default function App() {
   const [view, setView] = useState("map");
 
   return (
-    <>
-    <Navbar />
-      {/* ================= MAP VIEW ================= */}
+    <div className="app-root">
+
+      {/* NAVBAR (FIXED) */}
+      <Navbar />
+
+      {/* MAIN CONTENT */}
       {view === "map" && (
         <div className={`app-container ${selectedState ? "active" : ""}`}>
 
@@ -38,15 +41,13 @@ export default function App() {
         </div>
       )}
 
-      {/* ================= DETAILS PAGE ================= */}
+      {/* DETAILS PAGE */}
       {view === "details" && (
         <DetailsPage
           selectedState={selectedState}
           setView={setView}
         />
       )}
-    </>
+    </div>
   );
-
-
 }
