@@ -28,15 +28,41 @@ body {
 }
 
 /* TOOLTIP */
-.tooltip {
-  position: absolute;
+/* ===== PREMIUM TOOLTIP ===== */
+.tooltip.fixed {
+  position: fixed;
   bottom: 20px;
-  left: 20px;
-  background: rgba(30, 41, 59, 0.9);
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 13px;
+  right: 70%;
+  transform: translateX(-50%);
+
+  background: rgba(30, 41, 59, 0.95);
   color: white;
+
+  padding: 10px 16px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
+
+  z-index: 9999;
+
+  animation: fadeUp 0.25s ease;
+}
+
+/* smooth animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* REMOVE OUTLINE */

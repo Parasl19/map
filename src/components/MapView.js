@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/MapView.css";
+
 import {
   ComposableMap,
   Geographies,
@@ -25,23 +26,29 @@ const normalizeStateName = (name) => {
 export default function MapView({
   STATES,
   selectedState,
-  setSelectedState,
-  hoveredState,
-  setHoveredState
+  setSelectedState
 }) {
+
+  const [hoveredState, setHoveredState] = useState("");
+ 
+
   return (
     <div className="map-container">
+
+      {/* 🔥 TOOLTIP */}
       {hoveredState && (
-        <div className="tooltip">{hoveredState}</div>
-      )}
+  <div className="tooltip fixed">
+    {hoveredState}
+  </div>
+)}
 
       <ComposableMap
-      projection="geoMercator"
-      projectionConfig={{
-      scale: window.innerWidth < 800 ? 1400 : 900, // 🔥 bigger on mobile
-       center: window.innerWidth < 800 ? [82.7, 22] : [80, 22]
-  }}
->
+        projection="geoMercator"
+        projectionConfig={{
+          scale: window.innerWidth < 800 ? 1400 : 900,
+          center: window.innerWidth < 800 ? [82.7, 22] : [80, 22]
+        }}
+      >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
             geographies.map((geo) => {
@@ -57,33 +64,46 @@ export default function MapView({
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onMouseEnter={() => setHoveredState(rawName)}
+
+                  /* 🔥 HOVER EVENTS */
+                  onMouseEnter={(e) => {
+                    setHoveredState(rawName);
+                  }}
                   onMouseLeave={() => setHoveredState("")}
+
+                  /* 🔥 MOBILE TAP SUPPORT */
                   onClick={() => {
                     const data = STATES[normalized];
                     setSelectedState({ name: normalized, data });
+
+                    // show tooltip briefly on mobile
+                    if (window.innerWidth < 800) {
+                      setHoveredState(rawName);
+                      setTimeout(() => setHoveredState(""), 1500);
+                    }
                   }}
+
                   style={{
                     default: {
                       fill:
                         selectedState?.name === normalized
                           ? "#38bdf8"
                           : "#e5e7eb",
-                           stroke: "#1e293b",   // 🔥 ADD BORDER COLOR
-                           strokeWidth: 0.5,
+                      stroke: "#1e293b",
+                      strokeWidth: 0.6,
                       outline: "none"
                     },
                     hover: {
-                       fill: "#60a5fa",
-                        stroke: "#0f172a",
-                        strokeWidth: 1,
-                        outline: "none"
+                      fill: "#60a5fa",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
+                      outline: "none"
                     },
                     pressed: {
-                          fill: "#2563eb",
-                          stroke: "#0f172a",
-                          strokeWidth: 1,
-                          outline: "none"
+                      fill: "#2563eb",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
+                      outline: "none"
                     }
                   }}
                 />
