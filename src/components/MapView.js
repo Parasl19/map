@@ -58,6 +58,15 @@ export default function MapView({
                   onMouseLeave={() => setHoveredState("")}
                   onClick={() => {
                     const data = STATES[normalized];
+
+                    console.log("CLICK:", normalized);
+                    console.log("DATA:", data);
+
+                    if (!data) {
+                      alert("No data found in DB for this state");
+                      return;
+                    }
+
                     setSelectedState({ name: normalized, data });
                   }}
                   style={{

@@ -39,6 +39,7 @@ export default function ItemModal({ selectedItem, setSelectedItem }) {
                         selectedItem.significance}
                 </p>
 
+
                 {/* ================= BASIC INFO ================= */}
                 {selectedItem.location && <p>📍 {selectedItem.location}</p>}
                 {selectedItem.deity && <p>🛕 {selectedItem.deity}</p>}
@@ -244,6 +245,16 @@ export default function ItemModal({ selectedItem, setSelectedItem }) {
                         <p>⚡ {selectedItem.aiInsights.crowdTip}</p>
                     </>
                 )}
+
+                {/* ================= RELIGION ================= */}
+                {selectedItem.religion && (
+                    <>
+                        <h3>Religion</h3>
+                        <p>{selectedItem.religion}</p>
+                    </>
+                )}
+
+                
             </div>
         </div>
     );
