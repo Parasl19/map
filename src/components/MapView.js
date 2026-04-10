@@ -88,8 +88,15 @@ export default function MapView({
                   onClick={(e) => {
                     e.stopPropagation();
                     const data = STATES[normalized];
-                   console.log(data);
-                   
+
+                    console.log("CLICK:", normalized);
+                    console.log("DATA:", data);
+
+                    if (!data) {
+                      alert("No data found in DB for this state");
+                      return;
+                    }
+
                     setSelectedState({ name: normalized, data });
 
                     if (window.innerWidth < 800) {

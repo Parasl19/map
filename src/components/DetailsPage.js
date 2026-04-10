@@ -56,6 +56,8 @@ export default function DetailsPage({ selectedState, setView }) {
         ))}
       </div>
 
+      
+
       {/* ================= FESTIVALS ================= */}
       <h2>Festivals</h2>
       <div className="grid">
@@ -68,6 +70,22 @@ export default function DetailsPage({ selectedState, setView }) {
             <img src={item.image} alt="" />
             <h3>{item.title}</h3>
             <p>{item.about}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ================= HiddenFestivals ================= */}
+       <h2>Hidden Festivals</h2>
+      <div className="grid">
+        {data?.hiddenFestivals?.map((item, i) => (
+          <div
+            key={i}
+            className="card"
+            onClick={() => setSelectedItem(item)}
+          >
+            <img src={item.image} alt="" />
+            <h3>{item.title}</h3>
+            <p>{item.origin}</p>
           </div>
         ))}
       </div>
