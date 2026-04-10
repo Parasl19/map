@@ -2,6 +2,7 @@
 .details-page {
   height: 100vh;
   padding: 40px;
+  overflow-y: auto;
   background: #020617;
   animation: fadeUp 0.4s ease;
 }
