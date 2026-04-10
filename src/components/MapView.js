@@ -85,9 +85,11 @@ export default function MapView({
                   onMouseLeave={() => setHoveredState("")}
 
                   /* MOBILE TAP */
-                  onClick={() => {
-                    // e.stopPropagation();
+                  onClick={(e) => {
+                    e.stopPropagation();
                     const data = STATES[normalized];
+                   console.log(data);
+                   
                     setSelectedState({ name: normalized, data });
 
                     if (window.innerWidth < 800) {

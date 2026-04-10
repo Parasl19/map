@@ -14,6 +14,7 @@ export default function App() {
   const [view, setView] = useState("map");
   const sidePanelRef = useRef(null);
 
+
   useEffect(() => {
     fetchAllData();
   }, []);
@@ -49,10 +50,21 @@ export default function App() {
     setStatesData(formatted);
   }
 
-  return (
-    < div className="app-root">
+  useEffect(() => {
+  if (!selectedState || !statesData) return;
+  const updatedData = statesData[selectedState.name];
+  if (updatedData) {
+    setSelectedState({
+      name: selectedState.name,
+      data: updatedData
+    });
+  }
+}, [statesData, selectedState]);
 
-       {/* NAVBAR (FIXED) */}
+  return (
+    <div className="app-root">
+
+      {/* NAVBAR (FIXED) */}
       <Navbar selectedState={selectedState} view={view} />
 
       {/* MAIN CONTENT */}
