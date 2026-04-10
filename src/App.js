@@ -72,7 +72,7 @@ export default function App() {
         <div className={`app-container ${selectedState ? "active" : ""}`}>
 
           <MapView
-            STATES={statesData}   // ✅ DB data
+            STATES={statesData}   // ✅ DB data 
             selectedState={selectedState}
             setSelectedState={setSelectedState}
             hoveredState={hoveredState}
