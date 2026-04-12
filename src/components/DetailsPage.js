@@ -106,7 +106,7 @@ export default function DetailsPage({ selectedState, setView }) {
           </div>
         ))}
       </div>
-      console.log(data);
+      
       
 
 
