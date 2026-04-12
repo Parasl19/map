@@ -28,7 +28,8 @@ export default function App() {
         culture (*),
         festivals (*),
         foods (*),
-        spiritual_places (*)
+        spiritual_places (*),
+        hiddenfestivals (*)
       `);
 
     if (error) {
@@ -52,7 +53,10 @@ export default function App() {
         culture: state.culture || [],
         festivals: state.festivals || [],
         food: state.foods || [],
-        spiritual: state.spiritual_places || []
+        hiddenfestivals: state.hiddenfestivals || [],
+        spiritual: state.spiritual_places || [],
+        
+        
       };
     });
 

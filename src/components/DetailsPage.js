@@ -12,6 +12,7 @@ export default function DetailsPage({ selectedState, setView }) {
   if (!selectedState) return null;
 
   const data = selectedState.data;
+  
 
   return (
     <div className="details-page">
@@ -90,9 +91,10 @@ export default function DetailsPage({ selectedState, setView }) {
       </div>
 
       {/* ================= HiddenFestivals ================= */}
+
       <h2>Hidden Festivals</h2>
       <div className="grid">
-        {data?.hiddenFestivals?.map((item, i) => (
+        {data?.hiddenfestivals?.map((item, i) => (
           <div
             key={i}
             className="card"
@@ -100,10 +102,13 @@ export default function DetailsPage({ selectedState, setView }) {
           >
             <img src={item.image} alt="" />
             <h3>{item.title}</h3>
-            <p>{item.origin}</p>
+            <p>{item.about}</p>
           </div>
         ))}
       </div>
+      console.log(data);
+      
+
 
       {/* ================= FOOD ================= */}
       <h2>Food</h2>
