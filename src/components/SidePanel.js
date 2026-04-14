@@ -99,7 +99,7 @@ const SidePanel = forwardRef(({ selectedState, setSelectedState, setView }, ref)
 
           <div className="highlight">
             <span className="chip">🎉 Festival</span>
-            <p>{data?.festivals?.map((f) => f.title).join(", ")}</p>
+            <p>{data?.festivals?.slice(0,5).map((f) => f.title).join(", ")}</p>
           </div>
 
           <div className="highlight">
