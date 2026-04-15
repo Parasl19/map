@@ -6,7 +6,8 @@ import MapView from "./components/MapView";
 import SidePanel from "./components/SidePanel";
 import DetailsPage from "./components/DetailsPage";
 import { Routes, Route, } from "react-router-dom";
-// import Gallery from "./components/gallery/Gallery";
+import Gallery from "./components/gallery/Gallery";
+
 
 export default function App() {
   const [statesData, setStatesData] = useState({});
@@ -84,34 +85,6 @@ export default function App() {
   }
 
   return (
-    // <>
-    //   {view === "map" && (
-    //     <div className={`app-container ${selectedState ? "active" : ""}`}>
-
-    //       <MapView
-    //         STATES={statesData}   // ✅ DB data here
-    //         selectedState={selectedState}
-    //         setSelectedState={setSelectedState}
-    //         hoveredState={hoveredState}
-    //         setHoveredState={setHoveredState}
-    //       />
-
-    //       <SidePanel
-    //         selectedState={selectedState}
-    //         setSelectedState={setSelectedState}
-    //         setView={setView}
-    //       />
-
-    //     </div>
-    //   )}
-
-    //   {view === "details" && (
-    //     <DetailsPage
-    //       selectedState={selectedState}
-    //       setView={setView}
-    //     />
-    //   )}
-    // </>
   <Routes>
 
         {/* MAP PAGE */}
@@ -143,10 +116,8 @@ export default function App() {
       <Route path="/details/:stateName" element={<DetailsPage statesData={statesData} />} />
 
       {/* GALLERY PAGE */}
-      {/* <Route path="/gallery" element={<Gallery />} /> */}
-
-
-
+      <Route path="/gallery" element={<Gallery />} />
+      
   </Routes>
       
 

@@ -1,0 +1,190 @@
+/* Container background */
+.highlights-container {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  padding: 20px 0px 25px 0px;
+  /* min-height: 100vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main card */
+.highlights-card {
+  width: 480px;
+  padding: 20px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Header */
+.header h2 {
+  margin: 0;
+  font-size: 22px;
+  color: #fff;
+}
+
+.header p {
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+/* Card */
+.card {
+  position: relative;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+/* Glow border */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 1px;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Top row */
+.top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Icon */
+.icon {
+  font-size: 20px;
+}
+
+/* Tag */
+.tag {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: #cbd5f5;
+}
+
+/* Title */
+.card h3 {
+  margin: 10px 0 4px;
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Description */
+.card p {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* Arrow */
+.arrow {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  color: #cbd5f5;
+  font-size: 16px;
+}
+
+/* CTA */
+/* .cta {
+  margin-top: 16px;
+  padding: 12px;
+  text-align: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  color: #cbd5f5;
+  cursor: pointer;
+  transition: 0.3s;
+} */
+/* Button container */
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* Base button */
+.btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+/* Reset button */
+.reset {
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5f5;
+}
+
+.reset:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Explore button (primary) */
+.explore {
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  color: white;
+  font-weight: 500;
+}
+
+.explore:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+}
+
+.cta:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* Color variants */
+.food {
+  background: linear-gradient(135deg, rgba(124,58,237,0.2), rgba(147,51,234,0.15));
+}
+
+.festival {
+  background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(5,150,105,0.15));
+}
+
+.dress {
+  background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(37,99,235,0.15));
+}
+
+.animal {
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.15));
+}

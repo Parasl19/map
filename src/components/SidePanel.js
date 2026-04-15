@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../styles/SidePanel.css";
-import { useNavigate } from "react-router-dom";
+import Highlights from "./highlights";
 
 
 export default function SidePanel({ selectedState, setSelectedState, zoom, setZoom }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   
-  const navigate = useNavigate();
+
   // ✅ SAFE DATA ACCESS
   const data = selectedState?.data;
   const images = data?.tourism?.slice(0, 5).map((item) => item.image) || [];
@@ -62,7 +62,7 @@ export default function SidePanel({ selectedState, setSelectedState, zoom, setZo
       </div>
 
       {/* INFO GRID */}
-      <div className="info-grid">
+      {/* <div className="info-grid">
         <div className="info-box">
           <span>🏛️</span>
           <p className="label">Capital</p>
@@ -80,81 +80,54 @@ export default function SidePanel({ selectedState, setSelectedState, zoom, setZo
           <p className="label">Population</p>
           <p className="value">{data?.population}</p>
         </div>
-      </div>
+      </div> */}
 
       {/* 🗺️ TOP PLACES */}
       <div className="glass-card">
         <h3>Top Places</h3>
 
-        <div className="mini-cards">
+        {/* <div className="mini-cards">
           {data?.tourism?.slice(0, 3).map((item, i) => (
             <div key={i} className="mini-card">
               <img src={item.image} alt={item.title}  loading="lazy"/>
               <p>{item.title}</p>
             </div>
           ))}
-        </div>
+        </div> */}
+
+        {/* card test */}
+        <div className="places-grid">
+  {data?.tourism?.slice(0, 3).map((item, i) => (
+    <div 
+      key={i} 
+      className={`place-card ${i === 2 ? "full" : ""}`}
+    >
+      <img src={item.image} alt={item.title} loading="lazy" />
+      <div className="overlay"></div>
+
+      <div className="place-content">
+        <h4>{item.title}</h4>
+        <p>{item.location || "Maharashtra"} • Tourism</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+        {/* card test end */}
       </div>
 
       {/* 🍛 HIGHLIGHTS */}
-      <div className="glass-card">
-        <h3>Highlights</h3>
 
-        <div className="highlight">
-          <span className="chip">🍛 Food</span>
-          <p>
-            {data?.food?.slice(0, 5).map((f) => f.title).join(", ")}
-            {data?.food?.length > 5 && " + more"}
-          </p>
-        </div>
-
-        <div className="highlight">
-          <span className="chip">🎉 Festival</span>
-          <p>
-            {data?.festivals?.slice(0, 5).map((f) => f.title).join(", ")}
-            {data?.festivals?.length > 5 && " + more"}
-          </p>
-        </div>
-
-        <div className="highlight">
-          <span className="chip">👘 Dress</span>
-          <p>{data?.dress}</p>
-        </div>
-
-        <div className="highlight">
-          <span className="chip">🐾 Animal</span>
-          <p>{data?.stateAnimal}</p>
-        </div>
-      </div>
-
-      {/* BUTTONS */}
-      <div className="bottom-actions">
-        <button
-          className="reset"
-          onClick={() =>{
-            setSelectedState(null);
-            setZoom({
+      <Highlights onReset={() => {
+              setSelectedState(null);
+              setZoom({
                 center: [80, 22],
                 scale: 900
               });
           }}
-          
-        >
-          Reset
-        </button>
+          disabled={!selectedState}
+           selectedState={selectedState} />
 
-        <button
-          className="more"
-          onClick={() => {
-            if (!selectedState){
-              alert("Please select a state first!");
-            };
-            navigate(`/details/${selectedState.name.toLowerCase()}`) /*setView("details")*/}
-          }
-        >
-          Explore More →
-        </button>
-      </div>
     </div>
   );
 }
