@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import ItemModal from "./ItemModal";
 import "../styles/DetailsPage.css";
+import { useNavigate } from "react-router-dom";
 
 function formatStateName(name = "") {
   if (!name) return "";
@@ -36,16 +37,18 @@ function getSecondaryMeta(item) {
   return item?.type || item?.deity || item?.religion || "";
 }
 
-function SectionHeader({ title, subtitle }) {
+function SectionHeader({ title, subtitle ,onViewAll}){
   return (
     <div className="section-heading">
       <div>
         <h2>{title}</h2>
         {subtitle ? <p>{subtitle}</p> : null}
       </div>
-      <button type="button" className="ghost-btn">
+      <button type="button" className="ghost-btn" onClick={onViewAll}>
         View All
       </button>
+        
+      
     </div>
   );
 }
@@ -54,6 +57,7 @@ export default function DetailsPage({ statesData }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeCultureCategory, setActiveCultureCategory] = useState("Festivals");
   const { stateName } = useParams();
+  const navigate = useNavigate();
 
   const data = statesData[stateName];
 
@@ -141,10 +145,13 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
+            {/* Featured Places Section */}
       <section id="featured" className="details-section">
         <SectionHeader
           title="Featured Places"
           subtitle={`Explore standout destinations across ${stateLabel}.`}
+          onViewAll={() => navigate(`/Featured/${stateName}`)}
+          
         />
 
         <div className="featured-grid">
@@ -172,10 +179,12 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
+          {/* Tourism Section */}
       <section className="details-section">
         <SectionHeader
           title="Tourism"
           subtitle={`Explore the landscapes, landmarks, and spiritual stops of ${stateLabel}.`}
+          onViewAll={() => navigate(`/Tourism/${stateName}`)}
         />
 
         <div className="scroll-row">
@@ -198,10 +207,12 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
+          {/* Culture Section */}
       <section id="culture" className="details-section">
         <SectionHeader
           title="Culture"
           subtitle={`Experience the traditions, celebrations, and art of ${stateLabel}.`}
+          onViewAll={() => navigate(`/culture/${stateName}`)}
         />
 
         <div className="culture-layout">
@@ -238,10 +249,12 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
+            {/* Food Section */}
       <section className="details-section details-section--last">
         <SectionHeader
           title="Delicious Food"
           subtitle={`Savor signature dishes and local flavors from ${stateLabel}.`}
+          onViewAll={() => navigate(`/Food/${stateName}`)}
         />
 
         <div className="food-grid">
@@ -260,10 +273,13 @@ export default function DetailsPage({ statesData }) {
           ))}
         </div>
       </section>
+
+           {/* Spirituality Section */}
       <section className="details-section details-section--last">
         <SectionHeader
           title="Sprituality"
           subtitle={`Explore the spiritual side of ${stateLabel}.`}
+          onViewAll={() => navigate(`/Spirituality/${stateName}`)}
         />
 
         <div className="food-grid">

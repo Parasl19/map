@@ -7,7 +7,7 @@ import SidePanel from "./components/SidePanel";
 import DetailsPage from "./components/DetailsPage";
 import { Routes, Route, } from "react-router-dom";
 import Gallery from "./components/gallery/Gallery";
-
+import ViewAllPage from "./components/pages/viewallpage";
 
 export default function App() {
   const [statesData, setStatesData] = useState({});
@@ -117,6 +117,7 @@ export default function App() {
 
       {/* GALLERY PAGE */}
       <Route path="/gallery" element={<Gallery />} />
+      <Route path="/:category/:stateName" element={<ViewAllPage statesData={statesData} />} />
       
   </Routes>
       

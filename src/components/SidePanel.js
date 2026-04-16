@@ -85,7 +85,6 @@ export default function SidePanel({ selectedState, setSelectedState, zoom, setZo
       {/* 🗺️ TOP PLACES */}
       <div className="glass-card">
         <h3>Top Places</h3>
-
         {/* <div className="mini-cards">
           {data?.tourism?.slice(0, 3).map((item, i) => (
             <div key={i} className="mini-card">
@@ -111,7 +110,7 @@ export default function SidePanel({ selectedState, setSelectedState, zoom, setZo
       </div>
     </div>
   ))}
-</div>
+        </div>
 
         {/* card test end */}
       </div>
@@ -126,7 +125,8 @@ export default function SidePanel({ selectedState, setSelectedState, zoom, setZo
               });
           }}
           disabled={!selectedState}
-           selectedState={selectedState} />
+          selectedState={selectedState}
+          />
 
     </div>
   );
