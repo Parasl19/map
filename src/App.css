@@ -9,8 +9,9 @@ body {
 /* ================= LAYOUT ================= */
 .app-container {
   display: flex;
-  height: 100vh;
-  overflow: hidden;
+  height: calc(100vh - 60px); /* full height minus navbar */
+  overflow-y: auto;
+  /* margin-top: 60px; height of navbar */
 }
 
 /* ================= SHARED ANIMATIONS ================= */

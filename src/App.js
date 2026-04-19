@@ -8,6 +8,7 @@ import DetailsPage from "./components/DetailsPage";
 import { Routes, Route, } from "react-router-dom";
 import Gallery from "./components/gallery/Gallery";
 import ViewAllPage from "./components/pages/viewallpage";
+import Navbar from "./components/Navbar";
 
 export default function App() {
   const [statesData, setStatesData] = useState({});
@@ -85,6 +86,8 @@ export default function App() {
   }
 
   return (
+    <>
+    <Navbar selectedState={selectedState}  view="map"/>
   <Routes>
 
         {/* MAP PAGE */}
@@ -122,5 +125,6 @@ export default function App() {
   </Routes>
       
 
+  </>
   );
 }
