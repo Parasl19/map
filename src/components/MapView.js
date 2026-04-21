@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../styles/MapView.css";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
-import { Marker } from "react-simple-maps";
+// import { Marker } from "react-simple-maps";
 
 // GEOJSON URLS
 const geoUrl = "https://cdn.jsdelivr.net/npm/geojson-india@0.0.2/india.json";
@@ -33,17 +33,8 @@ export default function MapView({
   setZoom,
 }) {
   // for city markers
-  const isZoomedIn = zoom.scale > 1500;
+  // const isZoomedIn = zoom.scale > 1500;
   // test data for cities in Maharashtra
-  const cities =
-    selectedState?.name === "Maharashtra"
-      ? [
-          { name: "Mumbai", coordinates: [72.8777, 19.076] },
-          { name: "Pune", coordinates: [73.8567, 18.5204] },
-          { name: "Nagpur", coordinates: [79.0882, 21.1458] },
-          { name: "sangli", coordinates: [74.5802, 16.8713] },
-        ]
-      : [];
   const [hoveredState, setHoveredState] = useState("");
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   return (
@@ -178,28 +169,7 @@ export default function MapView({
           )} */}
 
         {/* City Markers */}
-        {isZoomedIn &&
-          cities.map((city, i) => (
-            <Marker key={i} coordinates={city.coordinates}>
-              <g>
-                {/* 🔴 DOT */}
-                <circle r={4} fill="#ef4444" />
-
-                {/* 🏷️ CITY NAME */}
-                <text
-                  textAnchor="middle"
-                  y={-10}
-                  style={{
-                    fontSize: "10px",
-                    fill: "white",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {city.name}
-                </text>
-              </g>
-            </Marker>
-          ))}
+       
       </ComposableMap>
     </div>
   );

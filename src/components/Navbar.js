@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/navbar.css";
 
+
 export default function Navbar({ selectedState, view }) {
 
   const [active, setActive] = useState("maps");
@@ -43,11 +44,14 @@ export default function Navbar({ selectedState, view }) {
           Map
         </a>
 
-        <a href="#chatbot" onClick={() => setMenuOpen(false)}>
+        <a href="https://heritage-ui-hazel.vercel.app/
+TravelMate Ai" onClick={() => {
+          setMenuOpen(false);
+        }}>
           TravelMate AI
         </a>
 
-        <a href="#translate" onClick={() => setMenuOpen(false)}>
+        <a href="/translation" onClick={() => setMenuOpen(false)}>
           Translation
         </a>
 
