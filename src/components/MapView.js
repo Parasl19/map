@@ -1,10 +1,6 @@
-import {React} from "react";
+import React, { useState } from "react";
 import "../styles/MapView.css";
-import {
-  ComposableMap,
-  Geographies,
-  Geography
-} from "react-simple-maps";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { geoCentroid } from "d3-geo";
 import { Marker } from "react-simple-maps";
 
@@ -20,10 +16,11 @@ const normalizeStateName = (name) => {
     "Andaman and Nicobar": "Andaman & Nicobar",
     "NCT of Delhi": "Delhi",
     "Jammu and Kashmir": "Jammu & Kashmir",
-    "Dadra and Nagar Haveli and Daman and Diu": "Dadra & Nagar Haveli and Daman & Diu",
+    "Dadra and Nagar Haveli and Daman and Diu":
+    "Dadra & Nagar Haveli and Daman & Diu",
 
     // Odisha: "Odisha" is already correct, but adding here for consistency and future-proofing,  changed for borders
-    Odisha: "Odisha"
+    Odisha: "Odisha",
   };
   return map[name] || name;
 };
@@ -32,39 +29,45 @@ export default function MapView({
   STATES,
   selectedState,
   setSelectedState,
-  hoveredState,
-  setHoveredState,
   zoom,
-  setZoom
+  setZoom,
 }) {
-
   // for city markers
   const isZoomedIn = zoom.scale > 1500;
   // test data for cities in Maharashtra
-  const cities = selectedState?.name === "Maharashtra"
-  ? [
-      { name: "Mumbai", coordinates: [72.8777, 19.0760] },
-      { name: "Pune", coordinates: [73.8567, 18.5204] },
-      { name: "Nagpur", coordinates: [79.0882, 21.1458] },
-      { name: "sangli", coordinates: [74.5802, 16.8713] }
-    ]
-  : [];
-
+  const cities =
+    selectedState?.name === "Maharashtra"
+      ? [
+          { name: "Mumbai", coordinates: [72.8777, 19.076] },
+          { name: "Pune", coordinates: [73.8567, 18.5204] },
+          { name: "Nagpur", coordinates: [79.0882, 21.1458] },
+          { name: "sangli", coordinates: [74.5802, 16.8713] },
+        ]
+      : [];
+  const [hoveredState, setHoveredState] = useState("");
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   return (
-    
     <div className="map-container">
       {hoveredState && (
-        <div className="tooltip">{hoveredState}</div>
-      )}  
+        <div
+          className="tooltip cursor"
+          style={{
+            left: tooltipPos.x,
+            top: tooltipPos.y,
+          }}
+        >
+          {hoveredState}
+        </div>
+      )}
 
       <ComposableMap
         projection="geoMercator"
         // projectionConfig={{ scale: 900, center: [80, 22] }}
         // for zooming and centering on click effect
-         projectionConfig={{
+        projectionConfig={{
           scale: zoom.scale,
-          center: zoom.center
-  }}
+          center: zoom.center,
+        }}
       >
         <Geographies geography={geoUrl}>
           {({ geographies }) =>
@@ -83,6 +86,12 @@ export default function MapView({
                   geography={geo}
                   onMouseEnter={() => setHoveredState(rawName)}
                   onMouseLeave={() => setHoveredState("")}
+                  onMouseMove={(e) => {
+                    setTooltipPos({
+                      x: e.clientX,
+                      y: e.clientY,
+                    });
+                  }}
                   onClick={() => {
                     const data = STATES[normalized.toLowerCase()];
 
@@ -99,8 +108,8 @@ export default function MapView({
                     setZoom({
                       center: center,
                       // defalt set by team is 1000 but for the marker to show up we need to set it to 2000
-                      scale: 2000
-                    }); 
+                      scale: 2000,
+                    });
 
                     setSelectedState({ name: normalized, data });
                   }}
@@ -110,14 +119,20 @@ export default function MapView({
                         selectedState?.name === normalized
                           ? "#38bdf8"
                           : "#e5e7eb",
+                      stroke: "#1e293b",
+                      strokeWidth: 0.6,
                       outline: "none"
                     },
                     hover: {
                       fill: "#60a5fa",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
                       outline: "none"
                     },
                     pressed: {
                       fill: "#2563eb",
+                      stroke: "#0f172a",
+                      strokeWidth: 1,
                       outline: "none"
                     }
                   }}
@@ -126,9 +141,9 @@ export default function MapView({
             })
           }
         </Geographies>
-        
-          {/* District Boundaries */}
-                    {/* {isZoomedIn && selectedState && (
+
+        {/* District Boundaries */}
+        {/* {isZoomedIn && selectedState && (
             <Geographies geography={districtGeoUrl}>
               {({ geographies }) =>
                 geographies
@@ -163,34 +178,29 @@ export default function MapView({
           )} */}
 
         {/* City Markers */}
-              {isZoomedIn &&cities.map((city, i) => (
-                  <Marker key={i} coordinates={city.coordinates}>
-                    <g>
-                      {/* 🔴 DOT */}
-                      <circle r={4} fill="#ef4444" />
-              
-                        {/* 🏷️ CITY NAME */}
-                        <text
-                          textAnchor="middle"
-                          y={-10}
-                          style={{
-                            fontSize: "10px",
-                            fill: "white",
-                            pointerEvents: "none"
-                          }}
-                        >
-                          {city.name}
-                        </text>
-                      </g>
-            
-                  </Marker>
-        ))}
- 
+        {isZoomedIn &&
+          cities.map((city, i) => (
+            <Marker key={i} coordinates={city.coordinates}>
+              <g>
+                {/* 🔴 DOT */}
+                <circle r={4} fill="#ef4444" />
 
-
-  
+                {/* 🏷️ CITY NAME */}
+                <text
+                  textAnchor="middle"
+                  y={-10}
+                  style={{
+                    fontSize: "10px",
+                    fill: "white",
+                    pointerEvents: "none",
+                  }}
+                >
+                  {city.name}
+                </text>
+              </g>
+            </Marker>
+          ))}
       </ComposableMap>
-      
     </div>
   );
 }
