@@ -387,6 +387,14 @@ export default function ItemModal({ selectedItem, setSelectedItem }) {
           </>
         )}
 
+        {/* ================= detailed_info ================= */}
+        {selectedItem.detailed_info && (
+          <>
+            <h3>Detailed Info</h3>
+            <p>{selectedItem.detailed_info}</p>
+          </>
+        )}
+
         {/* ================= AI ================= */}
         {selectedItem.aiInsights && (
           <>

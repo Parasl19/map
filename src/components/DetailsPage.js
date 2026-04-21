@@ -30,14 +30,16 @@ function getItemDescription(item) {
 }
 
 function getPrimaryMeta(item) {
-  return item?.best_time || item?.city || item?.location || item?.category || "";
+  return (
+    item?.best_time || item?.city || item?.location || item?.category || ""
+  );
 }
 
 function getSecondaryMeta(item) {
   return item?.type || item?.deity || item?.religion || "";
 }
 
-function SectionHeader({ title, subtitle ,onViewAll}){
+function SectionHeader({ title, subtitle, onViewAll }) {
   return (
     <div className="section-heading">
       <div>
@@ -47,15 +49,14 @@ function SectionHeader({ title, subtitle ,onViewAll}){
       <button type="button" className="ghost-btn" onClick={onViewAll}>
         View All
       </button>
-        
-      
     </div>
   );
 }
 
 export default function DetailsPage({ statesData }) {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [activeCultureCategory, setActiveCultureCategory] = useState("Festivals");
+  const [activeCultureCategory, setActiveCultureCategory] =
+    useState("Festivals");
   const { stateName } = useParams();
   const navigate = useNavigate();
 
@@ -67,11 +68,15 @@ export default function DetailsPage({ statesData }) {
 
   const tourism = data.tourism || [];
   const culture = data.culture || [];
-  const festivals = [...(data.festivals || []), ...(data.hiddenfestivals || [])];
+  const festivals = [
+    ...(data.festivals || []),
+    ...(data.hiddenfestivals || []),
+  ];
   const food = data.food || [];
   const spiritual = data.spiritual || [];
+  const hiddenfestivals = data.hiddenfestivals || [];
+  const castle = data.castle || [];
   // console.log(spiritual);
-  
 
   const heroImage =
     tourism[0]?.image ||
@@ -82,7 +87,7 @@ export default function DetailsPage({ statesData }) {
     "";
 
   const featuredPlaces = tourism.slice(0, 3);
-  const tourismHighlights = [...tourism, ...spiritual].slice(0, 8);
+  const tourismHighlights = [...tourism]; //.slice(0, 8);
 
   const dynamicCategories = culture
     .map((item) => item?.category)
@@ -99,7 +104,8 @@ export default function DetailsPage({ statesData }) {
 
   const stateLabel = formatStateName(stateName);
   const aboutText =
-    data.about || `Explore the beauty, culture, and experiences of ${stateLabel}.`;
+    data.about ||
+    `Explore the beauty, culture, and experiences of ${stateLabel}.`;
 
   return (
     <div className="details-page">
@@ -145,13 +151,12 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
-            {/* Featured Places Section */}
+      {/* Featured Places Section */}
       <section id="featured" className="details-section">
         <SectionHeader
           title="Featured Places"
           subtitle={`Explore standout destinations across ${stateLabel}.`}
           onViewAll={() => navigate(`/Featured/${stateName}`)}
-          
         />
 
         <div className="featured-grid">
@@ -179,7 +184,7 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
-          {/* Tourism Section */}
+      {/* Tourism Section */}
       <section className="details-section">
         <SectionHeader
           title="Tourism"
@@ -207,7 +212,63 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
-          {/* Culture Section */}
+      {/* --- Forts --- */}
+      {/* <section className="details-section">
+        <SectionHeader
+          title="Forts"
+          subtitle={`Explore the historical fortifications of ${stateLabel}.`}
+          onViewAll={() => navigate(`/Forts/${stateName}`)}
+        />
+
+        <div className="scroll-row">
+          {castle.map((item, index) => (
+            <article
+              key={`${getItemTitle(item)}-${index}`}
+              className="compact-card"
+              onClick={() => setSelectedItem(item)}
+            >
+              <img src={item.image} alt={getItemTitle(item)} loading="lazy" />
+              <div className="compact-card__content">
+                <h3>{getItemTitle(item)}</h3>
+                <p>{getItemDescription(item)}</p>
+                {getSecondaryMeta(item) ? (
+                  <span className="card-tag">{getSecondaryMeta(item)}</span>
+                ) : null}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section> */}
+      {stateName?.toLowerCase() === "maharashtra" && (
+        <section className="details-section">
+          <SectionHeader
+            title="Forts"
+            subtitle={`Explore the historical fortifications of ${stateLabel}.`}
+            onViewAll={() => navigate(`/castle/${stateName}`)}
+          />
+
+          <div className="scroll-row">
+            {castle.map((item, index) => (
+              <article
+                key={`${getItemTitle(item)}-${index}`}
+                className="compact-card"
+                onClick={() => setSelectedItem(item)}
+              >
+                <img src={item.image} alt={getItemTitle(item)} loading="lazy" />
+                <div className="compact-card__content">
+                  <h3>{getItemTitle(item)}</h3>
+                  <p>{getItemDescription(item)}</p>
+                  {getSecondaryMeta(item) ? (
+                    <span className="card-tag">{getSecondaryMeta(item)}</span>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Culture Section */}
       <section id="culture" className="details-section">
         <SectionHeader
           title="Culture"
@@ -249,7 +310,7 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
-            {/* Food Section */}
+      {/* Food Section */}
       <section className="details-section details-section--last">
         <SectionHeader
           title="Delicious Food"
@@ -274,7 +335,32 @@ export default function DetailsPage({ statesData }) {
         </div>
       </section>
 
-           {/* Spirituality Section */}
+      {/* Hidden Festivals Section */}
+      <section className="details-section details-section--last">
+        <SectionHeader
+          title="Hidden Festivals"
+          subtitle={`Discover the lesser-known celebrations of ${stateLabel}.`}
+          onViewAll={() => navigate(`/Hidden Festivals/${stateName}`)}
+        />
+
+        <div className="food-grid">
+          {hiddenfestivals.map((item, index) => (
+            <article
+              key={`${getItemTitle(item)}-${index}`}
+              className="food-card"
+              onClick={() => setSelectedItem(item)}
+            >
+              <img src={item.image} alt={getItemTitle(item)} loading="lazy" />
+              <div className="food-card__content">
+                <h3>{getItemTitle(item)}</h3>
+                <p>{getItemDescription(item) || "Tap to learn more."}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Spirituality Section */}
       <section className="details-section details-section--last">
         <SectionHeader
           title="Sprituality"

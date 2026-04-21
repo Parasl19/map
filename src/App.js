@@ -38,7 +38,8 @@ export default function App() {
         festivals (*),
         foods (*),
         spiritual_places (*),
-        hiddenfestivals (*)
+        hiddenfestivals (*),
+        castle (*)
       `);
 
     if (error) {
@@ -73,6 +74,7 @@ export default function App() {
         food: state.foods || [],
         hiddenfestivals: state.hiddenfestivals || [],
         spiritual: state.spiritual_places || [],
+        castle: state.castle || [],
       };
     });
 
