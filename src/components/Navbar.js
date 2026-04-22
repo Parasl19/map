@@ -15,7 +15,9 @@ export default function Navbar({ selectedState, view }) {
       
       <div className="nav-left">
         <div className="logo-space" />
-        <span className="brand-name">Heritage AI</span>
+        <a href="/"  className="bt">
+          <span  className="brand-name">Heritage AI</span>
+        </a>
       </div>
 
       {/* HAMBURGER */}
@@ -55,9 +57,6 @@ TravelMate Ai" onClick={() => {
           Translation
         </a>
 
-        <a href="#login" onClick={() => setMenuOpen(false)}>
-          Login
-        </a>
       </nav>
     </header>
   );

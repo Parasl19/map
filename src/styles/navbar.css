@@ -57,6 +57,9 @@ body {
   color: transparent;
 }
 
+.bt{
+  text-decoration: none;
+}
 
 /* ===== RIGHT NAV ===== */
 
