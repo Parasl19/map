@@ -84,9 +84,9 @@ export default function MapView({
                     });
                   }}
                   onClick={() => {
-                    const data = STATES[normalized.toLowerCase()];
+                    const data = STATES[normalized.toLowerCase().replace(/\s+/g, "_")];
 
-                    console.log("CLICK:", normalized);
+                    console.log("CLICK:", normalized.replace(/\s+/g, "_"));
                     console.log("DATA:", data);
 
                     if (!data) {

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function formatStateName(name = "") {
   if (!name) return "";
   return name
-    .split("-")
+    .split("_")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
 }

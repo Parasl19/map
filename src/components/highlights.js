@@ -1,32 +1,35 @@
 import React from "react";
 import "../styles/highlights.css";
 import { useNavigate } from "react-router-dom";
+import stateHighlights from "./pages/stateHighLights";
 
 function Highlights({onReset, selectedState }) {
     const navigate = useNavigate();
+    const stateKey = selectedState.name.toLowerCase().replace(/\s+/g, "_");
+    const highlights = stateHighlights[stateKey] || {};
   const data = [
     {
       title: "Food",
       icon: "🍲",
-      desc: "Puran Poli, Bhakri +2 more",
+      desc: highlights.food || "Puran Poli, Bhakri +2 more",
       className: "food",
     },
     {
       title: "Festival",
       icon: "🎉",
-      desc: "Ganesh Chaturthi +3 more",
+      desc: highlights.festival || "Ganesh Chaturthi +3 more",
       className: "festival",
     },
     {
       title: "Dress",
       icon: "👕",
-      desc: "Traditional wear",
+      desc: highlights.dress || "Traditional wear",
       className: "dress",
     },
     {
       title: "Animal",
       icon: "🐘",
-      desc: "State animal info",
+      desc: highlights.animal || "State animal info",
       className: "animal",
     },
   ];
@@ -63,7 +66,7 @@ function Highlights({onReset, selectedState }) {
         {/* navigate(`/details/${selectedState.name.toLowerCase().replace(/\s+/g, "-")}`);  if state name have spaces */}
         <div className="cta-buttons">
         <button className="btn reset" onClick={onReset}>Reset</button>
-        <button className="btn explore" onClick={() => navigate(`/details/${selectedState.name.toLowerCase()}`)}>Explore More →</button>
+        <button className="btn explore" onClick={() => navigate(`/details/${selectedState.name.toLowerCase().replace(/\s+/g, "_")}`)}>Explore More →</button>
         </div>
 
       </div>
