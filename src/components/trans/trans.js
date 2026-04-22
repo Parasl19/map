@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import "../../styles/ocr.css";
 
 
-// Simple Devanagari -> Latin transliteration for Hindi / Marathi
+
 function simpleDevanagariToLatin(text) {
   const map = {
     "अ": "a", "आ": "aa", "ा": "a",
@@ -87,7 +87,8 @@ export default function OCR() {
     setText(extractedText);
 
     // 🔥 AUTO TRANSLATE
-    await processText(extractedText);
+    // await processText(extractedText);
+    setText(extractedText);
 
   } catch (err) {
     console.error(err);
@@ -146,7 +147,8 @@ export default function OCR() {
     setText(extractedText);
 
     // 🔥 AUTO TRANSLATE
-    await processText(extractedText);
+    // await processText(extractedText);
+    setText(extractedText);
 
   } catch (err) {
     setText("❌ OCR failed");
@@ -187,14 +189,19 @@ const translateText = useCallback(async (inputText) => {
 
 
 const transliterateText = useCallback(async (inputText) => {
-  if (!inputText.trim()) return;
+  const cleanText = inputText?.trim();
+
+  if (!cleanText) {
+    setConvertedText("⚠️ No text to transliterate");
+    return;
+  }
 
   setConvLoading(true);
   setConvertedText("");
 
   try {
-    const result = simpleDevanagariToLatin(inputText);
-    setConvertedText(result);
+    const result = simpleDevanagariToLatin(cleanText);
+    setConvertedText(result || "⚠️ No result");
   } catch (err) {
     setConvertedText("❌ Transliteration failed");
   } finally {
@@ -211,11 +218,13 @@ const processText = useCallback(async (inputText) => {
     await transliterateText(inputText);
   }
 }, [convertMode, translateText, transliterateText]);
-useEffect(() => {
-  if (text) {
-    processText(text);
-  }
-}, [text, processText]);
+
+// auto effect
+// useEffect(() => {
+//   if (text) {
+//     processText(text);
+//   }
+// }, [text, processText]);
 
   return (
     <div className="ocr-wrapper">
@@ -307,7 +316,7 @@ useEffect(() => {
         {text && (
           <div className="ocr-result">
             <h3>Extracted Text</h3>
-            <textarea readOnly value={text}></textarea>
+            <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
             <button
               onClick={() => navigator.clipboard.writeText(text)}
               className="copy-btn"
@@ -331,13 +340,16 @@ useEffect(() => {
                   Translate
                 </button>
                 <button
-                  className={`convert-mode-btn ${convertMode === "transliterate" ? "active" : ""
-                    }`}
-                //   onClick={() => setConvertMode("transliterate")}
-                    onClick={() => {setConvertMode("transliterate")}}
-                >
-                  Transliterate
-                </button>
+                    className={`convert-mode-btn ${convertMode === "transliterate" ? "active" : ""}`}
+                    onClick={() => {
+                      setConvertMode("transliterate");
+                      transliterateText(text);
+                      console.log("transliteration btn pressed");
+                      
+                    }}
+                  >
+                    Transliterate
+                  </button>
               </div>
             </div>
 
@@ -361,7 +373,7 @@ useEffect(() => {
                 <select
                   value={targetLang}
                   onChange={(e) => setTargetLang(e.target.value)}
-                  disabled={convertMode === "transliterate"}
+                  disabled={false}
                 >
                   {languageOptions
                     .filter((l) => l.code !== "auto")
@@ -373,8 +385,12 @@ useEffect(() => {
                 </select>
               </div>
               <button className="convert-btn" onClick={() => processText(text)}>
-                {convLoading ? "Processing..." : "Convert"}
-              </button>
+                  {convLoading
+                    ? "Processing..."
+                    : convertMode === "translate"
+                    ? "Translate"
+                    : "Transliterate"}
+                </button>
             </div>
 
             {convertedText && (
