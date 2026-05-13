@@ -76,7 +76,7 @@ export default function OCR() {
     formData.append("image", file);
 
     // 🔥 OCR CALL (backend)
-    const res = await fetch("http://localhost:5000/api/ocr/extract", {
+    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/ocr/extract", {
       method: "POST",
       body: formData,
     });
@@ -136,7 +136,7 @@ export default function OCR() {
     const formData = new FormData();
     formData.append("image", blob);
 
-    const res = await fetch("http://localhost:5000/api/ocr/extract", {
+    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/ocr/extract", {
       method: "POST",
       body: formData,
     });
@@ -165,7 +165,7 @@ const translateText = useCallback(async (inputText) => {
   setConvertedText("");
 
   try {
-    const res = await fetch("http://localhost:5000/api/translate", {
+    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/translate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
