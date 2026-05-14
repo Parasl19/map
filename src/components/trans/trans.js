@@ -143,9 +143,9 @@ const translateText = useCallback(async (inputText) => {
   try {
     const res = await fetch("https://mapbackend-production-ce9a.up.railway.app/api/translate", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
       body: JSON.stringify({
         text: inputText,
         source: sourceLang === "auto" ? "en" : sourceLang,
