@@ -1,36 +1,10 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 // import Tesseract from "tesseract.js";
 import "../../styles/ocr.css";
-
-
-
-function simpleDevanagariToLatin(text) {
-  const map = {
-    "अ": "a", "आ": "aa", "ा": "a",
-    "इ": "i", "ई": "ii", "ि": "i", "ी": "ii",
-    "उ": "u", "ऊ": "uu", "ु": "u", "ू": "uu",
-    "ए": "e", "ऐ": "ai",
-    "ओ": "o", "औ": "au",
-
-    "क": "k", "ख": "kh", "ग": "g", "घ": "gh", "ङ": "n",
-    "च": "ch", "छ": "chh", "ज": "j", "झ": "jh", "ञ": "ny",
-    "ट": "t", "ठ": "th", "ड": "d", "ढ": "dh", "ण": "n",
-    "त": "t", "थ": "th", "द": "d", "ध": "dh", "न": "n",
-    "प": "p", "फ": "ph", "ब": "b", "भ": "bh", "म": "m",
-    "य": "y", "र": "r", "ल": "l", "व": "v",
-    "श": "sh", "ष": "sh", "स": "s", "ह": "h",
-
-    "ँ": "n", "ं": "n", "ः": "h",
-    "ृ": "ri",
-
-    "०": "0", "१": "1", "२": "2", "३": "3", "४": "4",
-    "५": "5", "६": "6", "७": "7", "८": "8", "९": "9",
-  };
-
-  let out = "";
-  for (const ch of text) out += map[ch] ?? ch;
-  return out;
-}
+import * as Sanscript from "sanscript";
+// console.log(
+//   Sanscript.t("पर खंडहर अपने-आपमें खंडहर § | रजनीकांत का मन उसकी खोखली दीवारों में जाकर भले ही छिप ले, पर उनके पैर उधर नहीं उठते हैं। वह अतीत है। मन में करुण-मधुर भावुकता को जगाने का अदृष्ट उपादान | उसे साकार करना गलती होगी | वर्तमान का उद्दाम नाटक नष्ट हो जाएगा । चेहरों की नकाबें गिर जाएंगी । बिजली की चौंधियाने- ", "devanagari", "iast")
+// );
 
 export default function OCR() {
   const [mode, setMode] = useState("upload"); // upload | camera
@@ -74,9 +48,10 @@ export default function OCR() {
   try {
     const formData = new FormData();
     formData.append("image", file);
+    formData.append("lang", sourceLang);
 
     // 🔥 OCR CALL (backend)
-    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/ocr/extract", {
+    const res = await fetch("http://localhost:5000/api/ocr/extract", {
       method: "POST",
       body: formData,
     });
@@ -135,8 +110,9 @@ export default function OCR() {
   try {
     const formData = new FormData();
     formData.append("image", blob);
+    formData.append("lang", sourceLang);
 
-    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/ocr/extract", {
+    const res = await fetch("http://localhost:5000/api/ocr/extract", {
       method: "POST",
       body: formData,
     });
@@ -165,7 +141,7 @@ const translateText = useCallback(async (inputText) => {
   setConvertedText("");
 
   try {
-    const res = await fetch("https://mapbackend-production-a800.up.railway.app/api/translate", {
+    const res = await fetch("http://localhost:5000/api/translate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -188,26 +164,141 @@ const translateText = useCallback(async (inputText) => {
 }, [sourceLang, targetLang]);
 
 
-const transliterateText = useCallback(async (inputText) => {
-  const cleanText = inputText?.trim();
+// const transliterateText = useCallback(async (inputText) => {
+//   const cleanText = inputText?.trim();
 
-  if (!cleanText) {
-    setConvertedText("⚠️ No text to transliterate");
-    return;
-  }
+//   if (!cleanText) {
+//     setConvertedText("⚠️ No text to transliterate");
+//     return;
+//   }
 
-  setConvLoading(true);
-  setConvertedText("");
+//   setConvLoading(true);
+//   setConvertedText("");
 
+//   try {
+//     const result = simpleDevanagariToLatin(cleanText);
+//     setConvertedText(result || "⚠️ No result");
+//   } catch (err) {
+//     setConvertedText("❌ Transliteration failed");
+//   } finally {
+//     setConvLoading(false);
+//   }
+// }, []);
+// const transliterateText = useCallback(async (inputText) => {
+//   const cleanText = inputText?.trim();
+
+//   if (!cleanText) {
+//     setConvertedText("⚠️ No text to transliterate");
+//     return;
+//   }
+
+//   setConvLoading(true);
+//   setConvertedText("");
+
+//   try {
+//     // devanagari -> english transliteration
+//     console.log(result);
+//     const result = Sanscript.t(
+//       cleanText,
+//       "devanagari",
+//       "itrans"
+//     );
+    
+
+//     setConvertedText(result || "⚠️ No result");
+//   } catch (err) {
+//     console.error(err);
+//     setConvertedText("❌ Transliteration failed");
+//   } finally {
+//     setConvLoading(false);
+//   }
+// }, []);
+// working version of transliteration using sanscript
+// const transliterateText = useCallback((inputText) => {
+//   try {
+//     const cleanText = inputText?.trim();
+
+//     if (!cleanText) return;
+
+//     setConvLoading(true);
+
+//     let result = cleanText;
+
+//     // English -> Hindi
+//     if (sourceLang === "en" && targetLang === "hi") {
+//       result = Sanscript.t(cleanText, "itrans", "devanagari");
+//     }
+
+//     // Hindi -> English
+//     else if (sourceLang === "hi" && targetLang === "en") {
+//       result = Sanscript.t(cleanText, "devanagari", "itrans");
+//     }
+
+//     setConvertedText(result);
+
+//   } catch (err) {
+//     console.error(err);
+//     setConvertedText("❌ Transliteration failed");
+//   } finally {
+//     setConvLoading(false);
+//   }
+// }, [sourceLang, targetLang]);
+// test 2
+
+const transliterateText = useCallback((inputText) => {
   try {
-    const result = simpleDevanagariToLatin(cleanText);
-    setConvertedText(result || "⚠️ No result");
+    const cleanText = inputText?.trim();
+
+    if (!cleanText) {
+      setConvertedText("⚠️ No text");
+      return;
+    }
+
+    setConvLoading(true);
+
+    let result = cleanText;
+
+    // English -> Hindi/Marathi
+    if (
+      sourceLang === "en" &&
+      (targetLang === "hi" || targetLang === "mr")
+    ) {
+      result = Sanscript.t(
+        cleanText.toLowerCase(),
+        "itrans",
+        "devanagari"
+      );
+    }
+
+    // Hindi/Marathi -> English
+    else if (
+      (sourceLang === "hi" || sourceLang === "mr") &&
+      targetLang === "en"
+    ) {
+      result = Sanscript.t(
+        cleanText,
+        "devanagari",
+        "hk"
+      );
+    }
+
+    // Hindi -> Marathi or Marathi -> Hindi
+    else if (
+      (sourceLang === "hi" && targetLang === "mr") ||
+      (sourceLang === "mr" && targetLang === "hi")
+    ) {
+      result = cleanText;
+    }
+
+    setConvertedText(result);
+
   } catch (err) {
+    console.error(err);
     setConvertedText("❌ Transliteration failed");
   } finally {
     setConvLoading(false);
   }
-}, []);
+}, [sourceLang, targetLang]);
 
 const processText = useCallback(async (inputText) => {
   if (!inputText.trim()) return;

@@ -10,6 +10,7 @@
     "react-router-dom": "^7.14.2",
     "react-scripts": "5.0.1",
     "react-simple-maps": "^3.0.0",
+    "sanscript": "^0.0.2",
     "tesseract.js": "^7.0.0"
   },
   "scripts": {
